@@ -194,7 +194,26 @@
             });
             // Afficher la section sélectionnée
             document.getElementById(id).classList.remove('hidden');
+
+            // Modifier l'URL sans recharger la page
+            history.pushState(null, null, '/' + id);
         }
+
+        // Gérer les changements d'URL lors de l'accès direct à une section via l'URL
+        window.addEventListener('popstate', function() {
+            const section = location.pathname.replace('/', '');
+            if (section) {
+                showSection(section);
+            }
+        });
+
+        // Vérifier l'URL au chargement initial pour afficher la section correspondante
+        window.onload = function() {
+            const section = location.pathname.replace('/', '');
+            if (section) {
+                showSection(section);
+            }
+        };
     </script>
 </body>
 </html>
